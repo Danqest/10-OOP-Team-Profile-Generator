@@ -161,20 +161,36 @@ getAnswers()
       <meta charset="UTF-8">
       <meta http-equiv="X-UA-Compatible" content="ie=edge">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-      <title>Document</title>
+      <title>Team Viewer</title>
     </head>
     <body>
-      <div class="jumbotron jumbotron-fluid">
-      <div class="container">
-        <h1 class="display-4">Hi! My name is ${data.name}</h1>
-        <p class="lead">I am from ${data.Location}.</p>
-        <h3>Example heading <span class="badge badge-secondary">Contact Me</span></h3>
-        <ul class="list-group">
-          <li class="list-group-item">My GitHub username is ${data.gitHub}</li>
-          <li class="list-group-item">LinkedIn: <a href="${data.linkedIn}">${data.linkedIn}</a></li>
-        </ul>
-      </div>
-    </div>
+        <div class="jumbotron jumbotron-fluid" style="background-color: red;">
+            <div class="container">
+                <h1 class="text-center" style="color: white;">My Team</h1>
+            </div>
+        </div>
+        
     </body>
     </html>`
+    }
+
+    function generateCard(data) {
+      return `
+      <div class="row" style="margin-top: 20px">
+        <div class="mx-auto">
+          <div class="card bg-light" style="width: 30rem; margin-bottom: 20px;">
+            <div class="card-header" style="background-color: blue;">
+              <h2 class="card-text text-center" style="margin-top: 20px; color: white;" id="Name">Employee's Name</h2>
+              <h4 class="card-text text-center" style="margin-bottom: 20px; color: white" id="Position">Employee's Position</h3>
+            </div>
+            <div class="card-body">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item" id="ID">ID: </li>
+                <li class="list-group-item" id="Email">Email: </li>
+                <li class="list-group-item" id="Special">Office Num/Github/School: </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>`
     }

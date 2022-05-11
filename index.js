@@ -175,7 +175,7 @@ return `<!DOCTYPE html>
 // HTML code for each card that will display the employee data
 function generateCard(name, position, id, email, special) {
 return `
-<div style="margin-top: 20px">
+<div class="row" style="margin-top: 20px">
   <div class="mx-auto">
     <div class="card bg-light" style="width: 30rem; margin-bottom: 20px;">
       <div class="card-header" style="background-color: blue;">
@@ -197,14 +197,14 @@ return `
 // function to actually write the HTML. begins with the initial chunk and appends (concats) card HTML based on length of the employee data array
 function writeHTML() {
   var begHTML = generateHTML()
-  const filename = `index.html`;
+  const filename = `./dist/index.html`;
   
   for (let i = 0; i < employeeData.length; i++) {
     if (employeeData[i].getRole() === "Manager") {
       var name = employeeData[i].name
       var position = employeeData[i].getRole()
       var id = employeeData[i].id
-      var email = employeeData[i].email
+      var email = (`<a href="mailto:`+employeeData[i].email+`" target="_blank">`+employeeData[i].email+`</a>`)
       var special = ("Office Number: " + employeeData[i].officeNumber)
       begHTML = begHTML.concat(generateCard(name, position, id, email, special))
     }
@@ -212,8 +212,8 @@ function writeHTML() {
       var name = employeeData[i].name
       var position = employeeData[i].getRole()
       var id = employeeData[i].id
-      var email = employeeData[i].email
-      var special = ("Github: " + employeeData[i].github)
+      var email = (`<a href="mailto:`+employeeData[i].email+`" target="_blank">`+employeeData[i].email+`</a>`)
+      var special = (`Github: <a href="https://github.com/`+employeeData[i].github+`" target="_blank">`+employeeData[i].github+`</a>`) 
       begHTML = begHTML.concat(generateCard(name, position, id, email, special))
 
     }
@@ -221,7 +221,7 @@ function writeHTML() {
       var name = employeeData[i].name
       var position = employeeData[i].getRole()
       var id = employeeData[i].id
-      var email = employeeData[i].email
+      var email = (`<a href="mailto:`+employeeData[i].email+`" target="_blank">`+employeeData[i].email+`</a>`)
       var special = ("School: " + employeeData[i].school)
       begHTML = begHTML.concat(generateCard(name, position, id, email, special))
 

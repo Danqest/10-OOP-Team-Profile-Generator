@@ -1,11 +1,14 @@
+// import packages and classes
 const inquirer = require("inquirer");
 const fs = require("fs");
 const Manager = require('./lib/manager')
 const Engineer = require('./lib/engineer')
 const Intern = require('./lib/intern')
 
+// initialize array that will hold employee data entered as classes
 var employeeData = []
 
+// function containing initial prompt chain for the manager's data, ends with prompt to add employees or write HTML
 function askInitPrompts() {
   const initPrompts = [
       {
@@ -56,23 +59,21 @@ function askInitPrompts() {
         }
       }
     ]
+
     return inquirer.prompt(initPrompts).then((answers) => {
+      // adds entered data to manager class which is appended to employee data array. choice to run function to start prompting employee data or write HTML
       const manager = new Manager(answers.employeeName, answers.employeeID, answers.employeeEmail, answers.employeeOfficeNum)
       employeeData.push(manager)
-      console.log(employeeData)
       if (answers.nextEmployee === 'Yes') {
-        // employeeData.push(answers)
         return askEmployeePrompts()
       }
       else {
-        // employeeData.push(answers)
-        console.log(employeeData)
         writeHTML()
       }
-    })
-    
+    })   
 }
-    
+
+// function containing prompt chain for the employee's data, ends with prompt to add employees again or write HTML
 function askEmployeePrompts() {
   const employeePrompts = [
     {
@@ -129,7 +130,7 @@ function askEmployeePrompts() {
       choices: ['Yes', 'No - Finish & Generate HTML'],
     }
   ]
-  
+  // adds employee data to data array as a class depending on employee type
   return inquirer.prompt(employeePrompts).then((answers) => {
     if (answers.employeeType === 'Engineer') {
       const engineer = new Engineer(answers.employeeName, answers.employeeID, answers.employeeEmail, answers.employeeGithub)
@@ -139,19 +140,19 @@ function askEmployeePrompts() {
       const intern = new Intern(answers.employeeName, answers.employeeID, answers.employeeEmail, answers.employeeSchool)
       employeeData.push(intern)
     }
+    // asks prompts again
     if (answers.nextEmployee === 'Yes') {
-      // employeeData.push(answers)
-      console.log(employeeData)
       return askEmployeePrompts()
     }
+    // if no more employees to add, write HTML
     else {
-      // employeeData.push(answers)
       console.log(employeeData)
       writeHTML()
     }
   })
 }
 
+// initial chunk of HTML code
 function generateHTML() {
 return `<!DOCTYPE html>
 <html lang="en">
@@ -171,6 +172,7 @@ return `<!DOCTYPE html>
 `
 }
 
+// HTML code for each card that will display the employee data
 function generateCard(name, position, id, email, special) {
 return `
 <div style="margin-top: 20px">
@@ -192,10 +194,7 @@ return `
 </div>`
 }
 
-// function endHTML() {
-// return 
-// }
-
+// function to actually write the HTML. begins with the initial chunk and appends (concats) card HTML based on length of the employee data array
 function writeHTML() {
   var begHTML = generateHTML()
   const filename = `index.html`;
@@ -228,16 +227,19 @@ function writeHTML() {
 
     }
   }
+  // ending HTML code
   const endHTML = `</body></html>`
   html = (begHTML + endHTML)
+  // write the entire HTML file
   fs.writeFile(filename, html, (err) =>
     err ? console.log(err) : console.log(`Successfully created HTML file '${filename}'!`)
   )
 }
 
+// function to begin asking prompts
 function getAnswers() {
   return askInitPrompts()
 }
 
-// function to begin prompts
+// invoke function to begin prompts
 getAnswers()

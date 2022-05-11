@@ -146,7 +146,6 @@ function askEmployeePrompts() {
     }
     // if no more employees to add, write HTML
     else {
-      console.log(employeeData)
       writeHTML()
     }
   })
